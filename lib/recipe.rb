@@ -1,14 +1,20 @@
 class Recipe
+  attr_reader :name, :ingredients
 
-  attr_reader :ingredients
-
-  def initialize(recipe_name)
-    @ingredients = Hash.new
+  def initialize(name)
+    @name = name
+    @ingredients = {}
   end
 
-  def add_ingredient(ingredient, quantity)
-    @ingredients[ingredient] = quantity
+  def ingredient_types
+    @ingredients.keys
   end
 
+  def add_ingredient(ingredient_name, amount)
+    @ingredients[ingredient_name] = amount
+  end
 
+  def amount_required(ingredient_name)
+    @ingredients[ingredient_name]
+  end
 end
