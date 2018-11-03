@@ -30,18 +30,35 @@ class Pantry
   end
 
   def what_can_i_make
-    recipes_with_stock = []
+    what_i_can_make = []
     @cookbook.each do |recipe_name, recipe_object|
-      @stock.each do |stock_item, stock_quantity|
-        recipe_object.ingredients.each do |recipe_ingredient, recipe_amount|
-           if recipe_ingredient == stock_item && stock_quantity > recipe_amount
-          #   binding.pry
-             recipes_with_stock << recipe_name
-           end
+      recipe_object.ingredients.each do |ingredient_name, ingredient_quantity|
+        @stock.each do |stock_name, stock_quantity|
+          if stock_name == ingredient_name && stock_quantity > ingredient_quantity
+            what_i_can_make << recipe_name
+          end
         end
       end
     end
-    recipes_with_stock.uniq
+    what_i_can_make.uniq
   end
+
+  def how_many_can_i_make
+    quantity_to_make = {}
+    what_can_i_make.each do |recipe_name|
+      binding.pry
+      @cookbook[recipe_name].ingredients.each do |ingredient_name, ingredient_quantity|
+        binding.pry
+        @stock.each do |stock_name, stock_quantity|
+          if stock_name == ingredient_name
+            amount_can_make = stock_quantity / ingredient_quantity
+            quantity_to_make[recipe_name] = amount_can_make
+          end
+        end
+      end
+    end
+
+  end
+
 
 end
