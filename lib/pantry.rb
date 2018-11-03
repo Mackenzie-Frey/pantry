@@ -35,13 +35,13 @@ class Pantry
       @stock.each do |stock_item, stock_quantity|
         recipe_object.ingredients.each do |recipe_ingredient, recipe_amount|
            if recipe_ingredient == stock_item && stock_quantity > recipe_amount
-            # binding.pry
+          #   binding.pry
              recipes_with_stock << recipe_name
            end
         end
       end
     end
-    recipes_with_stock
+    recipes_with_stock.uniq
   end
 
 end
